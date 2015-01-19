@@ -1,0 +1,16 @@
+{
+  "name": "dojo-module-list",
+  "version": "0.0.0",
+  "description": "List all dojo module used by the given html and javascript files",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "dojo",
+    "amd",
+    "dependency"
+  ],
+  "author": "Sansarun Sukawongviwat",
+  "license": "ISC"
+}
