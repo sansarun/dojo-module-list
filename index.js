@@ -1,6 +1,7 @@
 var glob = require("glob");
 var fs = require("fs");
 var cheerio = require("cheerio");
+var amdetective = require("amdetective");
 
 function searchDir(dir) {
     var modules = [];
@@ -21,7 +22,12 @@ function searchHtmlFile(file) {
 
     $ = cheerio.load(fs.readFileSync(file).toString());
 
-    //TODO search script tag
+    //search javscript in script tags
+    var scriptTags = $("script");
+    for(var i=0; i < scriptTags.length; i++) {
+        var scriptText = $(scriptTags[i]).html();
+        modules = modules.concat(amdetective(scriptText, {'findNestedDependencies': true}));
+    }
 
     //search widget declaration by looking for data-dojo-type attribute 
     var widgetTags = $("[data-dojo-type]");
@@ -29,7 +35,7 @@ function searchHtmlFile(file) {
         modules.push($(widgetTags[i]).attr("data-dojo-type").replace(/\./g, "/"));
     }
 
-    //TODO search mixins
+    //TODO search widget mixins
 
     return modules;
 }
