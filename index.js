@@ -23,6 +23,7 @@ function searchHtmlFile(file) {
 
     //TODO search script tag
 
+    //search widget declaration by looking for data-dojo-type attribute 
     var widgetTags = $("[data-dojo-type]");
     for(var i=0; i < widgetTags.length; i++) {
         modules.push($(widgetTags[i]).attr("data-dojo-type").replace(/\./g, "/"));
