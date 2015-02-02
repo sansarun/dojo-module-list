@@ -33,9 +33,13 @@ function searchHtmlFile(file) {
     var widgetTags = $("[data-dojo-type]");
     for(var i=0; i < widgetTags.length; i++) {
         modules.push($(widgetTags[i]).attr("data-dojo-type").replace(/\./g, "/"));
-    }
 
-    //TODO search widget mixins
+        //check if widget has any mixin
+        var mixinsAttr = $(widgetTags[i]).attr("data-dojo-mixins");
+        if(mixinsAttr !== undefined) {
+            modules = modules.concat(mixinsAttr.split(",").map(function(m){return m.trim()}));
+        }
+    }
 
     return modules;
 }
